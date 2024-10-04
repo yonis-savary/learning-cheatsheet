@@ -134,3 +134,106 @@ And then
 mvn package
 java -jar target/something_snapshot.jar
 ```
+
+
+## Compile to a native application with GraalVM
+
+- [GraalVM](https://www.graalvm.org/)
+
+### Download
+
+First download GraalVM from [here](https://www.graalvm.org/latest/getting-started/linux/#script-friendly-urls)
+
+Then, extract it in `/opt`, and add `/opt/graalvm-jdk-<version>.0.4+8.1/bin` to your PATH
+
+Check your installation with
+```bash
+native-image --version
+```
+
+### Add dependencies
+
+- [Source](https://www.graalvm.org/latest/reference-manual/native-image/#maven)
+
+
+Add the regular Maven plugins for compiling and assembling the project into an executable JAR file to your pom.xml file:
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.12.1</version>
+            <configuration>
+                <fork>true</fork>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.3.0</version>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <mainClass>com.example.App</mainClass>
+                        <addClasspath>true</addClasspath>
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+Enable the Maven plugin for Native Image by adding the following profile to `pom.xml`:
+
+
+```xml
+<profiles>
+    <profile>
+        <id>native</id>
+        <build>
+        <plugins>
+            <plugin>
+            <groupId>org.graalvm.buildtools</groupId>
+            <artifactId>native-maven-plugin</artifactId>
+            <version>${native.maven.plugin.version}</version>
+            <extensions>true</extensions>
+            <executions>
+                <execution>
+                <id>build-native</id>
+                <goals>
+                    <goal>compile-no-fork</goal>
+                </goals>
+                <phase>package</phase>
+                </execution>
+                <execution>
+                <id>test-native</id>
+                <goals>
+                    <goal>test</goal>
+                </goals>
+                <phase>test</phase>
+                </execution>
+            </executions>
+            </plugin>
+        </plugins>
+        </build>
+    </profile>
+</profiles>
+```
+
+Set the version property to the latest plugin version (for example, by specifying the version via `<native.maven.plugin.version>` in the <properties> element).
+
+[See availables versions here](https://mvnrepository.com/artifact/org.graalvm.buildtools/native-maven-plugin)
+
+Compile the project and build a native executable at one step:
+
+```bash
+mvn -Pnative package
+```
+
+The native executable, named helloworld, is created in the target/ directory of the project.
+Run the executable:
+```bash
+./target/helloworld
+```
