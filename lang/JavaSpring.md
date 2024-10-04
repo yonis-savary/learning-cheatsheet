@@ -1,16 +1,44 @@
-<center>
+<p align="center">
     <img src="https://cdn.worldvectorlogo.com/logos/spring-3.svg" width="200">
-</center>
-
+</p>
 
 # Java Spring cheatsheet
+
+## Index
+
+- [Java Spring cheatsheet](#java-spring-cheatsheet)
+  - [Resources](#resources)
+  - [Quick Start](#quick-start)
+    - [Demo Example](#demo-example)
+    - [Run an Spring Application](#run-an-spring-application)
+- [With maven](#with-maven)
+- [With gradle](#with-gradle)
+  - [Request & Response](#request---response)
+    - [Request Params](#request-params)
+  - [Routing](#routing)
+  - [Configuration](#configuration)
+  - [Commands](#commands)
+  - [Models](#models)
+  - [Views](#views)
+  - [Middlewares](#middlewares)
+  - [Events](#events)
+  - [Logging](#logging)
+  - [Utils](#utils)
+  - [Session](#session)
+  - [Caching](#caching)
+  - [Queueing](#queueing)
+  - [Event Source](#event-source)
+  - [Upload file](#upload-file)
+- [Serving assets](#serving-assets)
 
 ## Resources
 
 - [Spring Official Website Guides](https://spring.io/guides)
 - [WIP Source](https://www.youtube.com/watch?v=8B0IjOIzicU)
 
-## Quick Start [(Source)](https://spring.io/quickstart)
+## Quick Start
+
+[Source](https://spring.io/quickstart)
 
 Sprint projects can be generated from [Spring intializr](https://start.spring.io/)
 **(For web project, don't forget to add "Spring Web" dependency before downloading)**

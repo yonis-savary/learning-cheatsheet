@@ -1,6 +1,6 @@
-<center>
+<p align="center">
 <img src="https://brandslogos.com/wp-content/uploads/thumbs/java-logo-vector-1.svg" width="200">
-</center>
+</p>
 
 # Java / Java Webdev Cheatsheet
 
@@ -26,6 +26,7 @@
   - [I/O](#i-o)
     - [Display in console](#display-in-console)
     - [Read line in console](#read-line-in-console)
+    - [Parse CLI Arguments/Options](#parse-cli-arguments-options)
   - [Control structures](#control-structures)
     - [Conditions](#conditions)
     - [Loops](#loops)
@@ -35,6 +36,8 @@
     - [JSON](#json)
     - [Working with paths](#working-with-paths)
     - [Working with dates](#working-with-dates)
+    - [Conversion & Utilities](#conversion---utilities)
+    - [Capture regex matches](#capture-regex-matches)
   - [Functions](#functions)
     - [Lambda Expression](#lambda-expression)
     - [Array List](#array-list)
@@ -101,8 +104,9 @@ src
 - Constant names should be CAPITALIZED.
 
 
-### Namespaces [(Source)](https://bito.ai/resources/java-namespace-example-java-explained/)
+### Namespaces
 
+[Source](https://bito.ai/resources/java-namespace-example-java-explained/)
 
 
 In Java, namespaces are declared using the package keyword. For example, if you wanted to create a namespace called “example”, you would use the following code:
@@ -116,7 +120,9 @@ Using a class is done through the `import` keyword
 import com.mycompany.myproject.MainClass;
 ```
 
-### Include files [(Source)](https://stackoverflow.com/a/7737841)
+### Include files
+
+[Source](https://stackoverflow.com/a/7737841)
 
 You don't `#include` in Java; you `import package.Class`. Since Java 6 (or was it 5?), you can also `import static package.Class.staticMethodOfClass`, which would achieve some forms of what you're trying to do.
 
@@ -125,7 +131,9 @@ Also, as @duffymo noted, `import` only saves you from systematically prefixing t
 That said, having a "funcs.java" file seems to me like you are starting to dip your toes into some anti-patterns... And you should stay away from these.
 
 
-### Download a library [(Source)](https://www.quora.com/How-do-you-find-and-install-a-Java-library)
+### Download a library
+
+[Source](https://www.quora.com/How-do-you-find-and-install-a-Java-library)
 
 They are two ways to achieve that goal in Java
 
@@ -170,7 +178,9 @@ Reference
 
 ## Basics
 
-### Basic data types [(Source)](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html)
+### Basic data types
+
+[Source](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html)
 
 Declaring a variable
 ```java
@@ -197,7 +207,9 @@ String nullValue = null; // Null cannot be assigned to primitive data types
 int[] array = {1,2,3};
 ```
 
-### Usefull string methods [(Source)](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html)
+### Usefull string methods
+
+[Source](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html)
 
 ```java
 // Equivalent to valueOf(char[], int, int).
@@ -306,7 +318,9 @@ System.out.println("The username is: " + userName);
 ```
 
 
-### Parse CLI Arguments/Options [(Source)](https://stackoverflow.com/questions/367706/how-do-i-parse-command-line-arguments-in-java)
+### Parse CLI Arguments/Options
+
+[Source](https://stackoverflow.com/questions/367706/how-do-i-parse-command-line-arguments-in-java)
 
 Check these out:
   - [http://commons.apache.org/cli/](http://commons.apache.org/cli/)
@@ -358,7 +372,9 @@ public class Main {
 ```
 
 
-## Control structures [(Source)](https://www.codecademy.com/resources/docs/java)
+## Control structures
+
+[Source](https://www.codecademy.com/resources/docs/java)
 
 ### Conditions
 
@@ -633,6 +649,35 @@ calendar.setLenient(); // Sets whether the date/time interpretation should be le
 calendar.setMinimalDaysInFirstWeek(); // Sets how many minimal days required in the first week of the year.
 ```
 
+### Conversion & Utilities
+
+```java
+int x = Integer.parseInt("9");
+double c = Double.parseDouble("3.14");
+```
+
+### Capture regex matches
+
+[Source](https://www.tutorialspoint.com/javaregex/javaregex_capturing_groups.htm)
+
+```java
+String text = "This order was placed for QT3000! OK?";
+
+Pattern pattern = Pattern.compile("(.*)(\\d+)(.*)");
+Matcher matcher = pattern.matcher(text);
+
+if (m.find())
+{
+    System.out.println("Found value: " + matcher.group(0) );
+    System.out.println("Found value: " + matcher.group(1) );
+    System.out.println("Found value: " + matcher.group(2) );
+}
+else
+{
+    System.out.println("NO MATCH");
+}
+```
+
 ## Functions
 ```java
 
@@ -700,7 +745,9 @@ Consumer<Integer> method = (n) -> { System.out.println(n); };
 
 
 
-### Array List [(Source)](https://www.codecademy.com/resources/docs/java/array-list)
+### Array List
+
+[Source](https://www.codecademy.com/resources/docs/java/array-list)
 
 The `ArrayList` class uses dynamic arrays that are resizable, unlike traditional fixed arrays. However, each element must still be of the same type. Elements can be added or removed at any time, making the `ArrayList` more flexible.
 
@@ -748,7 +795,9 @@ a.trimToSize(); // Adjusts the capacity of the ArrayList to be the same as its s
 
 ```
 
-## OOP [(Source)](https://www.codecademy.com/resources/docs/java/interfaces)
+## OOP
+
+[Source](https://www.codecademy.com/resources/docs/java/interfaces)
 
 ### Classes
 

@@ -1,13 +1,15 @@
-<center>
+<p align="center">
     <img
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Apache_Maven_logo.svg/640px-Apache_Maven_logo.svg.png"
         width="300"
     >
-</center>
+</p>
 
 # Java Maven Cheatsheet
 
-### Using Maven [(Source)](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
+### Using Maven
+
+[Source](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
 
 Check Maven version :
 ```bash
@@ -29,6 +31,8 @@ mvn package
 Test the program
 
 ```bash
+java -jar target/my-app-1.0-SNAPSHOT.jar
+# OR
 java -cp target/my-app-1.0-SNAPSHOT.jar com.mycompany.app.App
 ```
 
@@ -93,6 +97,12 @@ Add this in `pom.xml`
 </plugin>
 ```
 
+And then
+
+```bash
+mvn package
+java -jar target/something_snapshot.jar
+```
 
 2. (SOLUTION 2) Create a single Jar
 
