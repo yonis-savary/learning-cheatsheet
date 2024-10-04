@@ -62,6 +62,40 @@ This command will clean the project, copy dependencies, and package the project 
 
 ### Add classpath to define main function
 
+1. (SOLUTION 1) Create a uber-jar that includes dependencies with [Maven Shade Plugin](https://medium.com/@lavneesh.chandna/unveiling-the-maven-shade-plugin-a-comprehensive-guide-e878966f6ee8), see [documentation](https://maven.apache.org/plugins/maven-shade-plugin/)
+
+Add this in `pom.xml`
+
+**Be sure that you're adding this in `build>plugins`, not in `build>pluginManagement>plugins`**
+
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-shade-plugin</artifactId>
+    <version>3.6.0</version>
+    <executions>
+        <execution>
+        <phase>package</phase>
+        <goals>
+            <goal>shade</goal>
+        </goals>
+        <configuration>
+            <minimizeJar>true</minimizeJar>
+            <transformers>
+            <transformer
+                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                <mainClass>org.yourproject.YourMainClass</mainClass>
+            </transformer>
+            </transformers>
+        </configuration>
+        </execution>
+    </executions>
+</plugin>
+```
+
+
+2. (SOLUTION 2) Create a single Jar
+
 Add this in `pom.xml`
 
 ```xml
