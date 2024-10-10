@@ -36,9 +36,33 @@ App Directory
   - `Rules/`: Rules are used to encapsulate complicated validation logic in a simple object. For more information, check out the [validation documentation](https://laravel.com/docs/11.x/validation).(`make:rule`)
 
 
-### More on `/storage`
+## More on `/storage`
 
 The `storage/app/public` directory may be used to store user-generated files, such as profile avatars, that should be publicly accessible. You should create a symbolic link at `public/storage` which points to this directory. You may create the link using the `php artisan storage:link` Artisan command
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Service Container
 
@@ -153,6 +177,32 @@ $this->app->resolving(function (mixed $object, Application $app) {
 });
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Service Providers
 
 [Source](https://laravel.com/docs/11.x/providers)
@@ -244,6 +294,25 @@ class RiakServiceProvider extends ServiceProvider implements DeferrableProvider
 }
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Optimization & Caching
 
 ### Optimizations
@@ -263,6 +332,29 @@ php artisan optimize:clear
 In the following documentation, we will discuss each of the granular optimization commands that are executed by the optimize command.
 
 ## Directory Structure
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -291,6 +383,25 @@ $environment = App::environment();
 ```
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Facades
 
 [Source](https://laravel.com/docs/11.x/facades)
@@ -298,6 +409,28 @@ $environment = App::environment();
 > Facades provide a "static" interface to classes that are available in the application's service container. Laravel ships with many facades which provide access to almost all of Laravel's features.
 
 > Facades have many benefits. They provide a terse, memorable syntax that allows you to use Laravel's features without remembering long class names that must be injected or configured manually. Furthermore, because of their unique usage of PHP's dynamic methods, they are easy to test.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Helpers
 
@@ -505,6 +638,27 @@ $user = Pipeline::send($user)
 
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Others
 
 
@@ -545,11 +699,27 @@ Finally, you can access the application in your web browser at: http://localhost
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Routing
 
 ### Api Routing
 
-The routes in routes/api.php are stateless and are assigned to the api middleware group. Additionally, the /api URI prefix is automatically applied to these routes, so you do not need to manually apply it to every route in the file. You may change the prefix by modifying your application's bootstrap/app.php file:
+The routes in `routes/api.php` are stateless and are assigned to the api middleware group. Additionally, the `/api` URI prefix is automatically applied to these routes, so you do not need to manually apply it to every route in the file. You may change the prefix by modifying your application's `bootstrap/app.php` file:
 
 ```php
 ->withRouting(
@@ -781,6 +951,24 @@ php artisan route:clear
 ```
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Middlewares
 
 [Source](https://laravel.com/docs/11.x/middleware)
@@ -886,6 +1074,26 @@ Route::put('/post/{id}', function (string $id) {})
 > Note: Sometimes a middleware may need to do some work after the HTTP response has been sent to the browser. If you define a terminate method on your middleware and your web server is using FastCGI, the terminate method will automatically be called after the response is sent to the browser
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Controllers
 
 [Source](https://laravel.com/docs/11.x/controllers)
@@ -944,7 +1152,7 @@ class UserController extends Controller implements HasMiddleware
 ```
 
 
-## Resource Controllers
+### Resource Controllers
 
 > Imagine your application contains a Photo model and a Movie model. It is likely that users can create, read, update, or delete these resources.
 
@@ -1050,7 +1258,28 @@ Route::apiSingleton('profile', ProfileController::class);
 | PUT/PATCH  | /profile       | update  | profile.update |
 
 
-## Path
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Request
 
 ```php
 
@@ -1119,6 +1348,27 @@ $file->move($directory, $newName); // Succes or throw errors
 $request->hasFile('photo');
 $request->file('photo')->isValid();
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Responses
@@ -1195,4 +1445,995 @@ return response()->caps('foo');
 
 
 
-<!-- TODO NEXT https://laravel.com/docs/11.x/views -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Views
+
+Laravel supports views with the [Blade templating language](https://laravel.com/docs/11.x/blade),
+which supports `.blade.php` files
+
+Create a view with
+
+```bash
+php artisan make:view greeting
+```
+
+Render a view
+```php
+view("profile");
+# Give data to blade
+view("profile", ["name" => "Dale"])
+
+view('greeting')->with('name', 'Victoria')->with('occupation', 'Astronaut');
+
+# Specify subdirectory admin/profile view
+view('admin.profile', $data);
+```
+
+
+Utiltitaries
+```php
+View::exists('admin.profile');
+```
+
+Sharing global data to views in a service provider
+```php
+public function boot(): void
+{
+    View::share('key', 'value');
+}
+```
+
+Optimization
+```bash
+php artisan view:cache
+php artisan view:clear
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Blade templating
+
+[Source](https://laravel.com/docs/11.x/blade)
+
+Display data in a view
+```php
+<div>
+    Hello, {{ $name }}.
+    It is, {{ time() }}.
+
+    <!-- unescaped data -->
+    Hello, {!! $name !!}.
+
+    <!-- Use @ to escape any blade directive-->
+    Hello, @{{ name }}.
+
+    <!-- Or use @verbatim to completely disable a section rendering -->
+    @verbatim
+        <div class="container">
+            Hello, {{ name }}.
+        </div>
+    @endverbatim
+
+</div>
+
+<!-- render JSON data -->
+<script>
+    var app = {{ Js::from($array) }};
+</script>
+```
+
+Directives
+
+```blade
+@if //...
+@elseif //...
+@else //...
+@endif
+
+@unless (Auth::check()) // You are not signed in.
+@endunless
+
+@isset($records)// $records is defined and is not null...
+@endisset
+
+@empty($records) // $records is "empty"...
+@endempty
+
+@auth // The user is authenticated...
+@endauth
+
+@guest // The user is not authenticated...
+@endguest
+
+# Specify authentication guard
+@auth('admin')// The user is authenticated...
+@endauth
+
+@guest('admin') // The user is not authenticated...
+@endguest
+
+@production // Production specific content...
+@endproduction
+
+@env(['staging', 'production']) // The application is running in "staging" or "production"...
+@endenv
+
+@hasSection('navigation')
+@endif
+
+@sectionMissing('navigation')
+@endif
+
+@session('status')
+    {{ $value }} // $value value is automatically set
+@endsession
+
+
+@switch($i)
+    @case(1)
+        @break
+    @case(2)
+        @break
+    @default
+        Default case...
+@endswitch
+
+@for ($i = 0; $i < 10; $i++)
+@endfor
+
+@foreach ($users as $user)
+@endforeach
+
+@forelse ($users as $user)
+@empty // no users
+@endforelse
+
+@while (true)
+@endwhile
+
+// Loop control statements are availables
+@continue
+@break
+// ... They can also take a condition
+@continue($user->type == 1)
+@break($user->number == 5)
+
+// Use the $loop variable in a loop to know where we are in the loop
+$loop->index     // The index of the current loop iteration (starts at 0).
+$loop->iteration // The current loop iteration (starts at 1).
+$loop->remaining // The iterations remaining in the loop.
+$loop->count     // The total number of items in the array being iterated.
+$loop->first     // Whether this is the first iteration through the loop.
+$loop->last      // Whether this is the last iteration through the loop.
+$loop->even      // Whether this is an even iteration through the loop.
+$loop->odd       // Whether this is an odd iteration through the loop.
+$loop->depth     // The nesting level of the current loop.
+$loop->parent    // When in a nested loop, the parent's loop variable.
+
+@php
+    $isActive = false;
+    $hasError = true;
+@endphp
+<span @class([
+    'p-4',
+    'font-bold' => $isActive,
+    'text-gray-500' => ! $isActive,
+    'bg-red' => $hasError,
+])></span>
+<span @style([
+    'background-color: red',
+    'font-weight: bold' => $isActive,
+])></span>
+
+
+<input @checked($condition)>
+<input @selected($condition)>
+<input @disabled($condition)>
+<input @readonly($condition)>
+<input @required($condition)>
+
+# include a subview
+@include("profile.picture")
+@include("profile.picture", ["user" => $currentUser])
+# Include a view but does not throw an error if inexistant
+@includeIf("profile.picture", ["user" => $currentUser])
+
+@includeWhen($condition, $view, $data);
+@includeUnless($condition, $view, $data);
+@includeFirst(['custom.admin', 'admin'], ['status' => 'complete'])
+
+# Render view name for each $jobs with the variable $job
+# render view.empty if $jobs is empty
+@each('view.name', $jobs, 'job', 'view.empty')
+
+# Render the subtemplate only once in the rendering cycle
+@pushOnce('scripts')
+    <script>
+        // Your custom JavaScript...
+    </script>
+@endPushOnce
+```
+
+Create a custom directory in service provider
+```php
+public function boot(): void
+{
+    Blade::directive('datetime', function (string $expression) {
+        return "<?php echo ($expression)->format('m/d/Y H:i'); ?>";
+    });
+}
+```
+
+Use it with
+```php
+@datetime($var)
+```
+
+Specify how blade should `echo` some types in your service provider
+```php
+Blade::stringable(fn (Money $money) => $money->formatTo('en_GB'));
+```
+
+Custom condition in service provider
+```php
+Blade::if('isAdmin', function (string $user=null) {
+    $user ??= $authenticatedUser
+    return isAdmin($user);
+});
+
+// blade
+@isAdmin()
+@endisAdmin
+
+@unlessisAdmin
+@endisAdmin
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Bundling assets
+
+[Source](https://laravel.com/docs/11.x/vite)
+
+In `vite.config.js`
+
+```js
+import { defineConfig } from 'vite';
+import laravel from 'laravel-vite-plugin';
+
+// Process every static resource at once
+import.meta.glob([
+  '../images/**',
+  '../scripts/**',
+  '../styles/**',
+  '../fonts/**',
+]);
+
+export default defineConfig({
+    plugins: [
+        laravel([
+            'resources/css/app.css',
+            'resources/js/app.js',
+        ]),
+    ],
+});
+```
+
+Importing in in a view
+
+```php
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+
+<!-- Given build path is relative to public path. -->
+@vite('resources/js/app.js', 'vendor/courier/build')
+
+# manually include assets
+{!! Vite::content('resources/css/app.css') !!}
+```
+
+Run & build assets
+```bash
+# Run the Vite development server...
+npm run dev
+
+# Build and version the assets for production...
+npm run build
+```
+
+[Work with vue](https://laravel.com/docs/11.x/vite#vue)
+
+Refreshing page on change
+
+```js
+export default defineConfig({
+    plugins: [
+        laravel({
+            // ...
+            refresh: true,
+        }),
+    ],
+});
+```
+
+
+### Vite Aliases
+
+In your service provider
+```php
+public function boot(): void
+{
+    Vite::macro('image', fn (string $asset) => $this->asset("resources/images/{$asset}"));
+}
+```
+
+In your view
+```php
+<img src="{{ Vite::image('logo.png') }}" alt="Laravel Logo">
+```
+
+### Prefetch
+
+To enable assets prefetching,
+write in your service provider
+
+```php
+public function boot(): void
+{
+    # Limit to 3 concurrent file at once
+    Vite::prefetch(concurrrency: 3);
+
+    # No limit, download all at once
+    Vite::prefetch();
+}
+```
+
+### View URL
+
+In `.env`
+
+```ini
+ASSET_URL=/
+```
+
+TODO: See how to configure client caching on assets
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Url Generation
+
+```php
+
+url("/posts/{$post->id}");
+
+url()->query("/post", ["search" => "laravel"]);
+
+url()->query('/posts', ['columns' => ['title', 'body']]);
+// http://example.com/posts?columns%5B0%5D=title&columns%5B1%5D=body
+
+URL::current();
+url()->current();
+url()->full();
+url()->previous();
+
+URL::signedRoute('unsubscribe', ['user' => 1]);
+# Exclude the domain
+URL::signedRoute('unsubscribe', ['user' => 1], absolute: false);
+
+URL::temporarySignedRoute('unsubscribe', now()->addMinutes(30), ['user' => 1]);
+
+if (! $request->hasValidSignature())
+    return response()->view('errors.link-expired', status: 403);
+
+Route::post(...)->middleware('signed');
+Route::post(...)->middleware('signed:relative'); // for absolute signed urls
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Session
+
+Your application's session configuration file is stored at `config/session.php`. Be sure to review the options available to you in this file. By default, Laravel is configured to use the `database` session driver.
+
+The session driver configuration option defines where session data will be stored for each request. Laravel includes a variety of drivers:
+- `file` - sessions are stored in storage/framework/sessions.
+- `cookie` - sessions are stored in secure, encrypted cookies.
+- `database` - sessions are stored in a relational database.
+- `memcached` / `redis` - sessions are stored in one of these fast, cache based stores.
+- `dynamodb` - sessions are stored in AWS DynamoDB.
+- `array` - sessions are stored in a PHP array and will not be persisted.
+
+
+When using `database` driver
+
+```bash
+php artisan make:session-table
+php artisan migrate
+```
+
+
+### Data manipulation
+
+
+```php
+
+public function control(Request $request)
+{
+    # Retrieve
+    session("key")
+    session("key", "default")
+    $request->session()->all();
+    $request->session()->get('key', 'default');
+    $request->session()->get('key', fn() => 'generate default');
+    $value = $request->session()->pull('key', 'default');
+
+    # set
+    session(["key" => "default"]);
+    $request->session()->put('key', 'value');
+    $request->session()->push('user.teams', 'developers');
+
+    $request->session()->exists('key');
+    $request->session()->missing('key');
+
+
+    $request->session()->increment('count');
+    $request->session()->increment('count', $incrementBy = 2);
+    $request->session()->decrement('count');
+    $request->session()->decrement('count', $decrementBy = 2);
+
+    // Put data for this request and the next one only
+    $request->session()->flash('status', 'Task was successful!');
+    $request->session()->reflash() // Refresh flash duration
+    $request->session()->keep(['status']) // Freeze the flash value and put it in session
+    $request->session()->now('status', 'Task was successful!'); // Flash only for the current request
+
+    # Delete data
+    $request->session()->forget(['name', 'status']);
+    $request->session()->flush();
+    # Delete all session
+    $request->session()->invalidate();
+
+    # Refresh the session Id
+    $request->session()->regenerate();
+}
+```
+
+See [Session blocking](https://laravel.com/docs/11.x/session#session-blocking)  and
+[Adding Custom Session Drivers](https://laravel.com/docs/11.x/session#adding-custom-session-drivers) for more
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Form Validation
+
+```php
+$validatedData = $request->validate([
+    'title' => ['required', 'unique:posts', 'max:255'],
+    'body' => ['required'],
+    'author.description' => 'required',
+    'v1\.0' => 'required',
+]);
+```
+
+Display errors in a view
+
+```php
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+<input
+    id="title"
+    type="text"
+    name="title"
+    class="@error('title') is-invalid @enderror"
+>
+
+```
+
+
+> When Laravel generates a redirect response due to a validation error, the framework will automatically flash all of the request's input to the session. This is done so that you may conveniently access the input during the next request and repopulate the form that the user attempted to submit.
+
+To retrieve said data
+```php
+$request->old('title');
+```
+
+[Available Validation rules](https://laravel.com/docs/11.x/validation#available-validation-rules)
+ - [Accepted](https://laravel.com/docs/11.x/validation#rule-accepted)
+ - [Accepted If](https://laravel.com/docs/11.x/validation#rule-accepted-if)
+ - [Active URL](https://laravel.com/docs/11.x/validation#rule-active-url)
+ - [After (Date)](https://laravel.com/docs/11.x/validation#rule-after)
+ - [After Or Equal (Date)](https://laravel.com/docs/11.x/validation#rule-after-or-equal)
+ - [Alpha](https://laravel.com/docs/11.x/validation#rule-alpha)
+ - [Alpha Dash](https://laravel.com/docs/11.x/validation#rule-alpha-dash)
+ - [Alpha Numeric](https://laravel.com/docs/11.x/validation#rule-alpha-numeric)
+ - [Array](https://laravel.com/docs/11.x/validation#rule-array)
+ - [Ascii](https://laravel.com/docs/11.x/validation#rule-ascii)
+ - [Bail](https://laravel.com/docs/11.x/validation#rule-bail)
+ - [Before (Date)](https://laravel.com/docs/11.x/validation#rule-before)
+ - [Before Or Equal (Date)](https://laravel.com/docs/11.x/validation#rule-before-or-equal)
+ - [Between](https://laravel.com/docs/11.x/validation#rule-between)
+ - [Boolean](https://laravel.com/docs/11.x/validation#rule-boolean)
+ - [Confirmed](https://laravel.com/docs/11.x/validation#rule-confirmed)
+ - [Contains](https://laravel.com/docs/11.x/validation#rule-contains)
+ - [Current Password](https://laravel.com/docs/11.x/validation#rule-current-password)
+ - [Date](https://laravel.com/docs/11.x/validation#rule-date)
+ - [Date Equals](https://laravel.com/docs/11.x/validation#rule-date-equals)
+ - [Date Format](https://laravel.com/docs/11.x/validation#rule-date-format)
+ - [Decimal](https://laravel.com/docs/11.x/validation#rule-decimal)
+ - [Declined](https://laravel.com/docs/11.x/validation#rule-declined)
+ - [Declined If](https://laravel.com/docs/11.x/validation#rule-declined-if)
+ - [Different](https://laravel.com/docs/11.x/validation#rule-different)
+ - [Digits](https://laravel.com/docs/11.x/validation#rule-digits)
+ - [Digits Between](https://laravel.com/docs/11.x/validation#rule-digits-between)
+ - [Dimensions (Image Files)](https://laravel.com/docs/11.x/validation#rule-dimensions)
+ - [Distinct](https://laravel.com/docs/11.x/validation#rule-distinct)
+ - [Doesnt Start With](https://laravel.com/docs/11.x/validation#rule-doesnt-start-with)
+ - [Doesnt End With](https://laravel.com/docs/11.x/validation#rule-doesnt-end-with)
+ - [Email](https://laravel.com/docs/11.x/validation#rule-email)
+ - [Ends With](https://laravel.com/docs/11.x/validation#rule-ends-with)
+ - [Enum](https://laravel.com/docs/11.x/validation#rule-enum)
+ - [Exclude](https://laravel.com/docs/11.x/validation#rule-exclude)
+ - [Exclude If](https://laravel.com/docs/11.x/validation#rule-exclude-if)
+ - [Exclude Unless](https://laravel.com/docs/11.x/validation#rule-exclude-unless)
+ - [Exclude With](https://laravel.com/docs/11.x/validation#rule-exclude-with)
+ - [Exclude Without](https://laravel.com/docs/11.x/validation#rule-exclude-without)
+ - [Exists (Database)](https://laravel.com/docs/11.x/validation#rule-exists)
+ - [Extensions](https://laravel.com/docs/11.x/validation#rule-extensions)
+ - [File](https://laravel.com/docs/11.x/validation#rule-file)
+ - [Filled](https://laravel.com/docs/11.x/validation#rule-filled)
+ - [Greater Than](https://laravel.com/docs/11.x/validation#rule-greater-than)
+ - [Greater Than Or Equal](https://laravel.com/docs/11.x/validation#rule-greater-than-or-equal)
+ - [Hex Color](https://laravel.com/docs/11.x/validation#rule-hex-color)
+ - [Image (File)](https://laravel.com/docs/11.x/validation#rule-image)
+ - [In](https://laravel.com/docs/11.x/validation#rule-in)
+ - [In Array](https://laravel.com/docs/11.x/validation#rule-in-array)
+ - [Integer](https://laravel.com/docs/11.x/validation#rule-integer)
+ - [IP Address](https://laravel.com/docs/11.x/validation#rule-ip-address)
+ - [JSON](https://laravel.com/docs/11.x/validation#rule-json)
+ - [Less Than](https://laravel.com/docs/11.x/validation#rule-less-than)
+ - [Less Than Or Equal](https://laravel.com/docs/11.x/validation#rule-less-than-or-equal)
+ - [List](https://laravel.com/docs/11.x/validation#rule-list)
+ - [Lowercase](https://laravel.com/docs/11.x/validation#rule-lowercase)
+ - [MAC Address](https://laravel.com/docs/11.x/validation#rule-mac-address)
+ - [Max](https://laravel.com/docs/11.x/validation#rule-max)
+ - [Max Digits](https://laravel.com/docs/11.x/validation#rule-max-digits)
+ - [MIME Types](https://laravel.com/docs/11.x/validation#rule-mime-types)
+ - [MIME Type By File Extension](https://laravel.com/docs/11.x/validation#rule-mime-type-by-file-extension)
+ - [Min](https://laravel.com/docs/11.x/validation#rule-min)
+ - [Min Digits](https://laravel.com/docs/11.x/validation#rule-min-digits)
+ - [Missing](https://laravel.com/docs/11.x/validation#rule-missing)
+ - [Missing If](https://laravel.com/docs/11.x/validation#rule-missing-if)
+ - [Missing Unless](https://laravel.com/docs/11.x/validation#rule-missing-unless)
+ - [Missing With](https://laravel.com/docs/11.x/validation#rule-missing-with)
+ - [Missing With All](https://laravel.com/docs/11.x/validation#rule-missing-with-all)
+ - [Multiple Of](https://laravel.com/docs/11.x/validation#rule-multiple-of)
+ - [Not In](https://laravel.com/docs/11.x/validation#rule-not-in)
+ - [Not Regex](https://laravel.com/docs/11.x/validation#rule-not-regex)
+ - [Nullable](https://laravel.com/docs/11.x/validation#rule-nullable)
+ - [Numeric](https://laravel.com/docs/11.x/validation#rule-numeric)
+ - [Present](https://laravel.com/docs/11.x/validation#rule-present)
+ - [Present If](https://laravel.com/docs/11.x/validation#rule-present-if)
+ - [Present Unless](https://laravel.com/docs/11.x/validation#rule-present-unless)
+ - [Present With](https://laravel.com/docs/11.x/validation#rule-present-with)
+ - [Present With All](https://laravel.com/docs/11.x/validation#rule-present-with-all)
+ - [Prohibited](https://laravel.com/docs/11.x/validation#rule-prohibited)
+ - [Prohibited If](https://laravel.com/docs/11.x/validation#rule-prohibited-if)
+ - [Prohibited Unless](https://laravel.com/docs/11.x/validation#rule-prohibited-unless)
+ - [Prohibits](https://laravel.com/docs/11.x/validation#rule-prohibits)
+ - [Regular Expression](https://laravel.com/docs/11.x/validation#rule-regular-expression)
+ - [Required](https://laravel.com/docs/11.x/validation#rule-required)
+ - [Required If](https://laravel.com/docs/11.x/validation#rule-required-if)
+ - [Required If Accepted](https://laravel.com/docs/11.x/validation#rule-required-if-accepted)
+ - [Required If Declined](https://laravel.com/docs/11.x/validation#rule-required-if-declined)
+ - [Required Unless](https://laravel.com/docs/11.x/validation#rule-required-unless)
+ - [Required With](https://laravel.com/docs/11.x/validation#rule-required-with)
+ - [Required With All](https://laravel.com/docs/11.x/validation#rule-required-with-all)
+ - [Required Without](https://laravel.com/docs/11.x/validation#rule-required-without)
+ - [Required Without All](https://laravel.com/docs/11.x/validation#rule-required-without-all)
+ - [Required Array Keys](https://laravel.com/docs/11.x/validation#rule-required-array-keys)
+ - [Same](https://laravel.com/docs/11.x/validation#rule-same)
+ - [Size](https://laravel.com/docs/11.x/validation#rule-size)
+ - [Sometimes](https://laravel.com/docs/11.x/validation#rule-sometimes)
+ - [Starts With](https://laravel.com/docs/11.x/validation#rule-starts-with)
+ - [String](https://laravel.com/docs/11.x/validation#rule-string)
+ - [Timezone](https://laravel.com/docs/11.x/validation#rule-timezone)
+ - [Unique (Database)](https://laravel.com/docs/11.x/validation#rule-unique)
+ - [Uppercase](https://laravel.com/docs/11.x/validation#rule-uppercase)
+ - [URL](https://laravel.com/docs/11.x/validation#rule-url)
+ - [ULID](https://laravel.com/docs/11.x/validation#rule-urlid)
+ - [UUID](https://laravel.com/docs/11.x/validation#rule-uuid)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Error Handling
+
+[Source](https://laravel.com/docs/11.x/errors)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Logging
+
+[Source](https://laravel.com/docs/11.x/logging)
+
+### Writing log messages
+
+```php
+Log::emergency($message);
+Log::alert($message);
+Log::critical($message);
+Log::error($message);
+Log::warning($message);
+Log::notice($message);
+Log::info($message);
+Log::debug($message);
+
+Log::info('Showing the user profile for user: {id}', ['id' => $id]);
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Artisan Command
+
+Make a command
+```bash
+php artisan make:command SendEmails
+```
+
+```php
+class SendEmails extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'mail:send {user}';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Send a marketing email to a user';
+
+    /**
+     * Execute the console command.
+     */
+    public function handle(DripEmailer $drip, string $user): void
+    {
+        $drip->send(User::find($this->argument('user')));
+
+        // exit code
+        return 0;
+    }
+}
+```
+
+
+Another solution to define a command is to declare a closure command
+
+```php
+Artisan::command('mail:send {user}', function (string $user) {
+    $this->info("Sending email to: {$user}!");
+})->purpose('Send a marketing email to a user');;
+```
+
+### Isolatable command
+
+> Sometimes you may wish to ensure that only one instance of a command can run at a time. To accomplish this, you may implement the Illuminate\Contracts\Console\Isolatable interface on your command class:
+
+```php
+class SendEmails extends Command implements Isolatable {}
+```
+
+> By default, Laravel will use the command's name to generate the string key that is used to acquire the atomic lock in your application's cache. However, you may customize this key by defining an isolatableId method on your Artisan command class, allowing you to integrate the command's arguments or options into the key:
+
+```php
+public function isolatableId(): string
+{
+    return $this->argument('user');
+}
+```
+
+Argument options
+
+```php
+'mail:send {user} {--queue=default}' // $this->option("queue")
+'mail:send {user} {--Q|queue}'
+'mail:send {user*}' // php artisan mail:send 1 2
+'mail:send {--id=*}' // php artisan mail:send --id=1 --id=2
+
+$name = $this->choice(
+    'What is your name?',
+    ['Taylor', 'Dayle'],
+    $defaultIndex,
+    $maxAttempts = null,
+    $allowMultipleSelections = false
+);
+```
+
+Writing output
+
+```php
+$this->info('The command was successful!');
+$this->error('Something went wrong!');
+$this->line('Display this on the screen');
+// Write three blank lines...
+$this->newLine(3);
+
+
+$this->table(
+    ['Name', 'Email'],
+    User::all(['name', 'email'])->toArray()
+);
+
+$users = $this->withProgressBar(User::all(), function (User $user) {
+    $this->performTask($user);
+});
+
+// Or
+$bar->start();
+foreach ($users as $user)
+{
+    $this->performTask($user);
+    $bar->advance();
+}
+$bar->finish();
+
+
+// Call a command
+
+Artisan::call('mail:send', ['--id' => [5, 13]]);
+
+
+// Signal interrupting
+$this->trap(SIGTERM, fn () => $this->shouldKeepRunning = false);
+
+while ($this->shouldKeepRunning) {
+    // ...
+}
+```
+
+
+
+## Broadcasting
+
+
+[Source](https://laravel.com/docs/11.x/broadcasting)
+
+
+
+## Caching
+
+[Source](https://laravel.com/docs/11.x/cache)
+
+
+## Collections
+[Source](https://laravel.com/docs/11.x/collections)
+
+## Concurrency
+[Source](https://laravel.com/docs/11.x/concurrency)
+
+## context
+[Source](https://laravel.com/docs/11.x/context)
+## contracts
+[Source](https://laravel.com/docs/11.x/contracts)
+## events
+[Source](https://laravel.com/docs/11.x/events)
+## filesystem
+[Source](https://laravel.com/docs/11.x/filesystem)
+## http-client
+[Source](https://laravel.com/docs/11.x/http-client)
+## mail
+[Source](https://laravel.com/docs/11.x/mail)
+## notifications
+[Source](https://laravel.com/docs/11.x/notifications)
+## packages
+[Source](https://laravel.com/docs/11.x/packages)
+## processes
+[Source](https://laravel.com/docs/11.x/processes)
+## queues
+[Source](https://laravel.com/docs/11.x/queues)
+## strings
+[Source](https://laravel.com/docs/11.x/strings)
+## scheduling
+[Source](https://laravel.com/docs/11.x/scheduling)
+
+## Authentication
+[Source](https://laravel.com/docs/11.x/authentication)
+## Authorization
+[Source](https://laravel.com/docs/11.x/authorization)
+## Verification
+[Source](https://laravel.com/docs/11.x/verification)
+## Encryption
+[Source](https://laravel.com/docs/11.x/encryption)
+## Hashing
+[Source](https://laravel.com/docs/11.x/hashing)
+## Passwords
+[Source](https://laravel.com/docs/11.x/passwords)
+
+## Database
+[Source](https://laravel.com/docs/11.x/database)
+## Queries
+[Source](https://laravel.com/docs/11.x/queries)
+## Pagination
+[Source](https://laravel.com/docs/11.x/pagination)
+## Migrations
+[Source](https://laravel.com/docs/11.x/migrations)
+## Seeding
+[Source](https://laravel.com/docs/11.x/seeding)
+## Redis
+[Source](https://laravel.com/docs/11.x/redis)
+
+## Eloquent
+[Source](https://laravel.com/docs/11.x/eloquent)
+## Eloquent-relationships
+[Source](https://laravel.com/docs/11.x/eloquent-relationships)
+## Eloquent-collections
+[Source](https://laravel.com/docs/11.x/eloquent-collections)
+## Eloquent-mutators
+[Source](https://laravel.com/docs/11.x/eloquent-mutators)
+## Eloquent-resources
+[Source](https://laravel.com/docs/11.x/eloquent-resources)
+## Eloquent-serialization
+[Source](https://laravel.com/docs/11.x/eloquent-serialization)
+## Eloquent-factories
+[Source](https://laravel.com/docs/11.x/eloquent-factories)
