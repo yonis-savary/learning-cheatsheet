@@ -3201,8 +3201,19 @@ $response = Http::github()->get("/");
 [Source](https://laravel.com/docs/11.x/mail)
 # notifications
 [Source](https://laravel.com/docs/11.x/notifications)
+
+
 # packages
 [Source](https://laravel.com/docs/11.x/packages)
+
+
+
+
+
+
+
+
+
 # processes
 [Source](https://laravel.com/docs/11.x/processes)
 # queues
@@ -4068,3 +4079,52 @@ Hash::check($clearPassword, $hashedPassword);
 
 # Passwords reset
 [Source](https://laravel.com/docs/11.x/passwords)
+
+
+
+
+
+# Good practices
+
+From [alexeymezenin/laravel-best-practices](https://github.com/alexeymezenin/laravel-best-practices)
+
+
+
+Validation
+
+Move validation from controllers to Request classes.
+
+Bad:
+```php
+public function store(Request $request)
+{
+    $request->validate([
+        'title' => 'required|unique:posts|max:255',
+        'body' => 'required',
+        'publish_at' => 'nullable|date',
+    ]);
+
+    ...
+}
+```
+
+Good:
+
+```php
+public function store(PostRequest $request)
+{
+    ...
+}
+
+class PostRequest extends Request
+{
+    public function rules(): array
+    {
+        return [
+            'title' => 'required|unique:posts|max:255',
+            'body' => 'required',
+            'publish_at' => 'nullable|date',
+        ];
+    }
+}
+```
